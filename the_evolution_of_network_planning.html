@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>From Static to Autonomous: The Evolution of Network Planning</title>
+  <style>
+:root {
+  --cisco-blue: #00BCEB;
+  --cisco-indigo: #049FD9;
+  --cisco-midnight: #0D274D;
+  --cisco-sapphire: #0D274D;
+  --cisco-sky: #58B7E6;
+  --cisco-ink: #39393B;
+  --cisco-dark: #1D1D1F;
+  --bg: #ffffff;
+  --bg-soft: #F2F2F2;
+  --card: #ffffff;
+  --text: var(--cisco-ink);
+  --muted: #6E6E73;
+  --border: #D2D2D7;
+  --good: #6CC04A;
+  --good-bg: #EAF7E2;
+  --warn: #FBAB2C;
+  --warn-bg: #FFF4DC;
+  --bad: #E2231A;
+  --bad-bg: #FCE5E4;
+  --code-bg: #1D1D1F;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "CiscoSans", "CiscoSans TT", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.container { max-width: 1080px; margin: 0 auto; padding: 0 32px 96px; }
+
+/* ===== Hero header ===== */
+header {
+  background: var(--cisco-midnight);
+  color: #ffffff;
+  padding: 0;
+  margin-bottom: 48px;
+  position: relative;
+}
+header .container { padding: 56px 32px 72px; max-width: 1080px; }
+.wordmark-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 40px;
+}
+.wordmark-lockup .cisco-logotype { display: block; }
+.wordmark-lockup .subbrand-name {
+  font-size: 13px;
+  color: rgba(255,255,255,0.72);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+header .eyebrow {
+  color: rgba(255,255,255,0.65);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+header h1 {
+  margin: 0 0 16px;
+  font-size: 52px;
+  font-weight: 300;
+  letter-spacing: -0.75px;
+  color: #ffffff;
+  line-height: 1.1;
+  max-width: 820px;
+}
+header .subtitle {
+  font-size: 18px;
+  color: rgba(255,255,255,0.82);
+  margin-bottom: 36px;
+  max-width: 780px;
+  line-height: 1.55;
+  font-weight: 300;
+}
+header .subtitle code {
+  background: rgba(255,255,255,0.10);
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.18);
+}
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  margin-top: 32px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.meta-cell {
+  background: var(--cisco-midnight);
+  padding: 14px 18px;
+  font-size: 13px;
+}
+.meta-cell .label {
+  color: rgba(255,255,255,0.60);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+.meta-cell .value { color: #ffffff; font-weight: 500; }
+
+/* ===== Headings ===== */
+h2 {
+  font-size: 26px;
+  margin: 56px 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--cisco-sapphire);
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+}
+h2 .num {
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 0;
+  border-radius: 0;
+  letter-spacing: 1px;
+  font-family: "SF Mono", Menlo, monospace;
+  min-width: 32px;
+}
+h3 {
+  font-size: 18px;
+  color: var(--cisco-sapphire);
+  margin: 32px 0 12px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+h4, h5, h6 {
+  color: var(--cisco-sapphire);
+  margin: 24px 0 10px;
+  font-weight: 600;
+}
+p { margin: 0 0 16px; }
+a { color: var(--cisco-indigo); text-decoration: none; border-bottom: 1px solid transparent; }
+a:hover { color: var(--cisco-sapphire); border-bottom-color: var(--cisco-blue); }
+
+/* ===== Cards / blockquotes ===== */
+.card, blockquote {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--cisco-blue);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin: 18px 0 22px;
+  box-shadow: none;
+  color: var(--text);
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ===== Tables ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  font-size: 14.5px;
+}
+th {
+  background: var(--cisco-sapphire);
+  color: white;
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+}
+td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: var(--bg-soft); }
+
+/* ===== Code ===== */
+code {
+  font-family: "SF Mono", Menlo, Consolas, "Courier New", monospace;
+  background: var(--bg-soft);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 13px;
+  color: var(--cisco-sapphire);
+  word-break: break-word;
+}
+pre {
+  background: var(--code-bg);
+  color: #F2F2F2;
+  padding: 18px 22px;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  margin: 14px 0 24px;
+  border-left: 3px solid var(--cisco-blue);
+}
+pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+
+/* ===== Diagrams ===== */
+.diagram {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px;
+  margin: 18px 0 26px;
+  text-align: center;
+  overflow-x: auto;
+}
+.diagram-caption {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 12px;
+  font-style: italic;
+}
+.mermaid { background: white; }
+
+/* ===== Lists ===== */
+ul, ol { padding-left: 22px; }
+ul li, ol li { margin-bottom: 6px; color: var(--text); }
+ul li::marker, ol li::marker { color: var(--cisco-ink); }
+
+/* ===== TOC ===== */
+.toc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin: 8px 0 36px;
+  font-size: 14px;
+}
+.toc strong {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--cisco-sapphire);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 700;
+}
+.toc-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 24px;
+}
+@media (max-width: 700px) { .toc-list { grid-template-columns: 1fr; } }
+.toc a {
+  color: var(--cisco-sapphire);
+  text-decoration: none;
+  display: block;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.toc a:hover {
+  color: var(--cisco-indigo);
+  border-bottom-color: var(--cisco-blue);
+}
+
+/* ===== Footer ===== */
+.footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12.5px;
+  border-top: 1px solid var(--border);
+  letter-spacing: 0.2px;
+}
+.footer .footer-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  opacity: 0.75;
+}
+
+@media print {
+  body { background: white; font-size: 12px; }
+  header { background: var(--cisco-midnight) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  header h1, header .subtitle, header .eyebrow, .meta-cell .value, .meta-cell .label, .wordmark-lockup .subbrand-name { color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .toc, .print-hint { display: none !important; }
+  .card, .diagram, table { page-break-inside: avoid; box-shadow: none; }
+}
+</style>
+</head>
+<body>
+<header><div class="container"><div class="wordmark-lockup"><svg class="cisco-logotype" width="92" height="64" viewBox="0 0 111.5087 77.208" aria-label="Cisco" role="img" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#fff;}</style></defs><path class="cls-1" d="M85.2729,51.21a6.61078,6.61078,0,1,1-6.6114-6.4756A6.42437,6.42437,0,0,1,85.2729,51.21Zm-6.6114-3.2901A3.2916,3.2916,0,1,0,81.92721,51.21,3.233,3.233,0,0,0,78.6615,47.9199Z"/><path class="cls-1" d="M68.7299,48.541a5.5135,5.5135,0,0,0-2.6563-.6679,3.34039,3.34039,0,1,0,0,6.6767,5.57543,5.57543,0,0,0,2.6563-.6641v3.3584a10.08026,10.08026,0,0,1-2.877.4454,6.48027,6.48027,0,1,1,0-12.9551,9.64615,9.64615,0,0,1,2.877.4482Z"/><path class="cls-1" d="M55.2465,47.7998a10.82929,10.82929,0,0,0-2.4678-.3818c-1.2656,0-1.9531.4238-1.9531,1.0254,0,.7617.9277,1.0273,1.4473,1.1914l.8711.2773a3.76363,3.76363,0,0,1,2.9824,3.57909c0,3.14261-2.7637,4.19831-5.1797,4.19831a18.82838,18.82838,0,0,1-3.4072-.3418V54.4688a11.83173,11.83173,0,0,0,2.9814.4648c1.57031,0,2.293-.459,2.293-1.168,0-.6338-.625-1-1.4082-1.2461-.1914-.0634-.47849-.15331-.6739-.2177-1.7587-.5557-3.22459-1.5889-3.22459-3.6602,0-2.3398,1.752-3.9111,4.66209-3.9111a13.47819,13.47819,0,0,1,3.0772.3984Z"/><rect class="cls-1" x="40.1166" y="44.9561" width="3.1572" height="12.5107"/><path class="cls-1" d="M35.7768,48.541a5.4821,5.4821,0,0,0-2.6524-.6679,3.34049,3.34049,0,1,0,0,6.6767,5.53973,5.53973,0,0,0,2.6524-.6641v3.3584a10.01525,10.01525,0,0,1-2.8789.4454,6.48011,6.48011,0,1,1,0-12.9551,9.61669,9.61669,0,0,1,2.8789.4482Z"/><rect class="cls-1" x="88.6103" y="29.9492" width="3.1572" height="6.4121" rx="1.5786"/><rect class="cls-1" x="80.00171" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="71.39306" y="19.7412" width="3.1572" height="19.7412" rx="1.5786"/><rect class="cls-1" x="62.78442" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="54.17577" y="29.9492" width="3.1572" height="6.4121" rx="1.5786"/><rect class="cls-1" x="45.56713" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="36.95849" y="19.7412" width="3.1572" height="19.7412" rx="1.5786"/><rect class="cls-1" x="28.34984" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="19.7412" y="29.9492" width="3.1572" height="6.4121" rx="1.5786"/></svg></div><h1>From Static to Autonomous: The Evolution of Network Planning</h1><div class="meta-grid"><div class="meta-cell"><span class="label">Owner</span><span class="value">Julia Palomino</span></div><div class="meta-cell"><span class="label">Last Updated</span><span class="value">August 18, 2026</span></div></div></div></header>
+<div class="container">
+<div class="toc"><strong>Contents</strong><div class="toc-list"><a href="#the-limitations-of-traditional-planning">1. The Limitations of Traditional Planning</a><a href="#the-shift-toward-autonomy">2. The Shift Toward Autonomy</a><a href="#the-foundation-simplifying-planning-today-with-crosswork-planning">3. The Foundation: Simplifying Planning Today with Crosswork Planning</a><a href="#the-accelerator-boosting-efficiency-with-cp-apis-and-python-sdk">4. The Accelerator: Boosting Efficiency with CP APIs and Python SDK</a><a href="#the-future-the-agentic-shift-toward-autonomy">5. The Future: The Agentic Shift Toward Autonomy</a><a href="#technical-implementation-building-your-first-autonomous-agent">6. Technical Implementation: Building Your First Autonomous Agent</a><a href="#conclusion-the-future-is-autonomous">7. Conclusion: The Future is Autonomous</a><a href="#references">8. References</a></div></div>
+<p>Here is the complete, final version of your blog post in markdown format.</p>
+<hr>
+<p>In the rapidly evolving landscape of modern networking, the traditional approach to planning—often manual, siloed, and reactive—is becoming a significant bottleneck. As networks grow in complexity and scale, the need for a more dynamic, data-driven approach has never been more critical. </p>
+<h2 id="the-limitations-of-traditional-planning"><span class="num">1</span> The Limitations of Traditional Planning</h2>
+<p>For years, network planning has relied on periodic analysis, manual data collection, and static modeling. While this served the needs of simpler architectures, it fails to keep pace with the demands of modern, high-capacity environments. The result is increased operational complexity, slower time-to-market, and missed opportunities for optimization.</p>
+<h2 id="the-shift-toward-autonomy"><span class="num">2</span> The Shift Toward Autonomy</h2>
+<p>Autonomous network planning represents a fundamental shift. By moving away from manual interventions and toward a framework powered by intelligent automation, organizations can transition from "planning for today" to "predicting for tomorrow." This journey is built on three distinct pillars.</p>
+<h2 id="the-foundation-simplifying-planning-today-with-crosswork-planning"><span class="num">3</span> The Foundation: Simplifying Planning Today with Crosswork Planning</h2>
+<p>Before we can achieve full autonomy, we must master the fundamentals. <strong>Crosswork Planning (CP)</strong> serves as the cornerstone of this strategy. As a comprehensive automation application, it simplifies the complexities of network design, planning, and optimization right out of the box. </p>
+<p>By providing a unified view of the network and advanced modeling capabilities, Crosswork Planning allows teams to:
+* <strong>Reduce Complexity:</strong> Visualize and manage multi-vendor, multi-layer network topologies with ease.
+* <strong>Optimize Resources:</strong> Identify bottlenecks and optimize traffic engineering paths before they impact the business.
+* <strong>Mitigate Risk:</strong> Perform "what-if" analysis to validate changes in a safe, simulated environment.</p>
+<h2 id="the-accelerator-boosting-efficiency-with-cp-apis-and-python-sdk"><span class="num">4</span> The Accelerator: Boosting Efficiency with CP APIs and Python SDK</h2>
+<p>While the Crosswork Planning application provides the essential tools for human-led planning, the next step in the evolution is programmatic scale. By leveraging our native Python SDK, organizations can move beyond manual workflows into the realm of automated network planning.</p>
+<p>The Python SDK is a game-changer for customization; it allows engineers to build complex planning workflows using an intuitive, Pythonic syntax. This makes it easier than ever to integrate planning insights directly into CI/CD pipelines and operational systems. Beyond simple automation, these Python scripts serve as the <strong>essential tools</strong> for the next phase of our journey: the agentic future.</p>
+<h2 id="the-future-the-agentic-shift-toward-autonomy"><span class="num">5</span> The Future: The Agentic Shift Toward Autonomy</h2>
+<p>The final evolution is the introduction of AI agents. If APIs provide the "hands" to execute tasks, AI agents provide the "reasoning" to make intelligent, context-aware decisions. However, agents are only as effective as the tools they are given.</p>
+<p>By utilizing the Python scripts created in the previous step, we can provide AI agents with a library of actions to perform. To ensure success, we must define these tools with precision. Because ambiguity is the enemy of Large Language Models (LLMs), our tools are designed to provide outputs in a strictly structured format. This structured data ensures that the agent can interpret results accurately, enabling it to monitor the network, analyze trends, and proactively execute optimizations without human intervention. This is the key to managing massive network scale while augmenting your team’s operational capacity.</p>
+<h2 id="technical-implementation-building-your-first-autonomous-agent"><span class="num">6</span> Technical Implementation: Building Your First Autonomous Agent</h2>
+<h3>4.1 The Tooling Layer: Python SDK &amp; Structured Outputs</h3>
+<p>To avoid the "ambiguity trap" with LLMs, every tool must return a strictly structured format (e.g., JSON).</p>
+<p><strong>Representative Tool Example:</strong></p>
+<pre><code class="language-python">def get_link_utilization(link_id: str):
+    # Logic using CP SDK to query the network model
+    return {
+        &quot;status&quot;: &quot;success&quot;,
+        &quot;data&quot;: {&quot;link_id&quot;: link_id, &quot;utilization_pct&quot;: 75.5}
+    }
+</code></pre>
+<h3>4.2 Local vs. MCP: Choosing Your Tooling Strategy</h3>
+<ul>
+<li><strong>Local Tools:</strong> These reside directly within the agent’s execution environment. Ideal for simple, dedicated agents where minimal latency is the priority.</li>
+<li><strong>MCP (Model Context Protocol):</strong> The industry standard for interoperability. By hosting tools on an MCP server, you decouple the tool logic from the agent, allowing the agent to <strong>discover and invoke tools dynamically</strong>.</li>
+</ul>
+<p><strong>Tool Definition Example (JSON Schema):</strong></p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;get_link_utilization&quot;,
+  &quot;description&quot;: &quot;Returns current utilization for a specific link.&quot;,
+  &quot;parameters&quot;: { &quot;link_id&quot;: &quot;string&quot; }
+}
+</code></pre>
+<h3>4.3 Architecture Overview: Integration with the Crosswork AI Framework</h3>
+<p>Crosswork AI is a production-ready, multi-agentic framework that provides built-in Cisco agents while enabling users to onboard custom agents via the <strong>Crosswork AI Agent SDK (ADK)</strong>. It is important to note that the following architecture represents <strong>prototype work</strong> and is not a productized CP agent. The integration relies on the following components:</p>
+<ul>
+<li><strong>CP Agent:</strong> A custom agent created using the <strong>Crosswork AI ADK</strong> and onboarded into the Crosswork AI framework to handle planning-specific reasoning.</li>
+<li><strong>LLM Proxy:</strong> Centralizes LLM interactions for governance and model flexibility.</li>
+<li><strong>MCP GW (Gateway):</strong> Facilitates the connection between the agentic environment and external toolsets.</li>
+<li><strong>CP MCP Server:</strong> Leveraging the <strong>CP SDK</strong>, this server acts as the dedicated interface for the CP Agent.</li>
+<li><strong>Crosswork Planning (CP) Server:</strong> The authoritative source of truth for network data, exposing the <code>opm-service</code> to interact with the powerful CP simulation engine.</li>
+</ul>
+<p><em>[Insert Architecture Diagram Here]</em></p>
+<h3>4.4 Deployment and Prototype in Action</h3>
+<p>Deploying your custom agent with Crosswork AI is a streamlined process:
+1.  <strong>Package:</strong> Containerize your agent logic and create a tar ball.
+2.  <strong>Register:</strong> First, register the external MCP server through the MCP GW of Crosswork AI; second, register the CP Agent through the Crosswork AI UI or <code>cwaictl</code> CLI tool.
+3.  <strong>Deploy:</strong> Use the Crosswork AI UI to spin up the agent instance.</p>
+<p><strong>See the CP Agent in Action:</strong>
+To see this architecture in a real-world scenario, watch this demonstration of the prototype CP Agent: <a href="https://cisco.sharepoint.com/:v:/r/sites/SPNATME/Shared%20Documents/Crosswork%20AI%20(Project%20Foresight)/demo%20assets/CP_Agent_demos/cwai_cp_agent_prototype.mp4?csf=1&amp;web=1&amp;e=XjTCg6">Watch the CP Agent Prototype Demo</a></p>
+<h2 id="conclusion-the-future-is-autonomous"><span class="num">7</span> Conclusion: The Future is Autonomous</h2>
+<p>The transition from traditional planning to autonomous operations is not just about adopting new technology; it is about changing how we interact with our network. By leveraging the Crosswork Planning application, the Python SDK, and the power of AI agents, we are empowering network teams to scale their operations without scaling their headcount. The tools are ready, the architecture is defined, and the path to a self-optimizing network is clear.</p>
+<h2 id="references"><span class="num">8</span> References</h2>
+<ul>
+<li><strong>Crosswork Planning APIs &amp; SDK Documentation:</strong> <a href="https://developer.cisco.com/docs/crosswork/planning/libraries-crosswork-planning-opm-python-library/">Cisco DevNet Library</a></li>
+<li><strong>CP MCP Server Prototype:</strong> [GitHub Repository - Link Here]</li>
+<li><strong>CP Agent Implementation:</strong> [GitHub Repository - Link Here]</li>
+</ul>
+<hr>
+<p><em>If you wish to generate a PowerPoint presentation using the text above, please click the PPT icon.</em>  </p>
+<div class="footer"><div class="footer-brand"><svg class="cisco-logotype" width="60" height="42" viewBox="0 0 111.5 77.2" aria-label="Cisco" role="img" xmlns="http://www.w3.org/2000/svg"><defs><style>.st0{fill:#07182d;}</style></defs><path class="st0" d="M85.3,51.2c0,3.7-2.8,6.7-6.5,6.7s-6.7-2.8-6.7-6.5c0-3.7,2.8-6.7,6.5-6.7,0,0,0,0,.1,0,3.5-.1,6.5,2.7,6.6,6.2,0,0,0,.2,0,.2ZM78.7,47.9c-1.8,0-3.3,1.4-3.3,3.3s1.4,3.3,3.3,3.3c1.8,0,3.3-1.4,3.3-3.3,0,0,0,0,0,0,0-1.8-1.4-3.3-3.2-3.3,0,0,0,0,0,0Z"/><path class="st0" d="M68.7,48.5c-.8-.4-1.7-.7-2.7-.7-1.8,0-3.4,1.4-3.5,3.2,0,1.8,1.4,3.4,3.2,3.5,0,0,.2,0,.2,0,.9,0,1.8-.2,2.7-.7v3.4c-.9.3-1.9.4-2.9.4-3.6.1-6.6-2.7-6.7-6.3-.1-3.6,2.7-6.6,6.3-6.7.1,0,.3,0,.4,0,1,0,1.9.2,2.9.4v3.4Z"/><path class="st0" d="M55.2,47.8c-.8-.2-1.6-.4-2.5-.4-1.3,0-2,.4-2,1s.9,1,1.4,1.2l.9.3c1.7.4,2.9,1.8,3,3.6,0,3.1-2.8,4.2-5.2,4.2-1.1,0-2.3-.1-3.4-.3v-2.9c1,.3,2,.4,3,.5,1.6,0,2.3-.5,2.3-1.2s-.6-1-1.4-1.2c-.2,0-.5-.2-.7-.2-1.8-.6-3.2-1.6-3.2-3.7s1.8-3.9,4.7-3.9c1,0,2.1.1,3.1.4v2.7Z"/><rect class="st0" x="40.1" y="45" width="3.2" height="12.5"/><path class="st0" d="M35.8,48.5c-.8-.4-1.7-.7-2.7-.7-1.8,0-3.4,1.4-3.5,3.2,0,1.8,1.4,3.4,3.2,3.5,0,0,.2,0,.2,0,.9,0,1.8-.2,2.7-.7v3.4c-.9.3-1.9.4-2.9.4-3.6.1-6.6-2.7-6.7-6.3-.1-3.6,2.7-6.6,6.3-6.7.1,0,.2,0,.4,0,1,0,1.9.2,2.9.4v3.4Z"/><rect class="st0" x="88.6" y="29.9" width="3.2" height="6.4" rx="1.6" ry="1.6"/><rect class="st0" x="80" y="25.6" width="3.2" height="10.7" rx="1.6" ry="1.6"/><rect class="st0" x="71.4" y="19.7" width="3.2" height="19.7" rx="1.6" ry="1.6"/><path class="st0" d="M64.4,25.6h0c.9,0,1.6.7,1.6,1.6v7.6c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-7.6c0-.9.7-1.6,1.6-1.6Z"/><path class="st0" d="M55.8,29.9h0c.9,0,1.6.7,1.6,1.6v3.3c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-3.3c0-.9.7-1.6,1.6-1.6Z"/><path class="st0" d="M47.1,25.6h0c.9,0,1.6.7,1.6,1.6v7.6c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-7.6c0-.9.7-1.6,1.6-1.6Z"/><path class="st0" d="M38.5,19.7h0c.9,0,1.6.7,1.6,1.6v16.6c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-16.6c0-.9.7-1.6,1.6-1.6Z"/><path class="st0" d="M29.9,25.6h0c.9,0,1.6.7,1.6,1.6v7.6c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-7.6c0-.9.7-1.6,1.6-1.6Z"/><path class="st0" d="M21.3,29.9h0c.9,0,1.6.7,1.6,1.6v3.3c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-3.3c0-.9.7-1.6,1.6-1.6Z"/></svg></div>©2026 Cisco and/or its affiliates. Cisco Confidential.<div class="print-hint">Print to PDF (<code>Cmd/Ctrl+P</code>) for a clean handout.</div></div>
+</div>
+
+</body>
+</html>
