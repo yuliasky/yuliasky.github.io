@@ -327,10 +327,12 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
 <p>Autonomous network planning represents a fundamental shift. By moving away from manual interventions and toward a framework powered by intelligent automation, organizations can transition from "planning for today" to "predicting for tomorrow." This journey is built on three distinct pillars.</p>
 <h2 id="the-foundation-simplifying-planning-today-with-crosswork-planning"><span class="num">3</span> The Foundation: Simplifying Planning Today with Crosswork Planning</h2>
 <p>Before we can achieve full autonomy, we must master the fundamentals. <strong>Crosswork Planning (CP)</strong> serves as the cornerstone of this strategy. As a comprehensive automation application, it simplifies the complexities of network design, planning, and optimization right out of the box. </p>
-<p>By providing a unified view of the network and advanced modeling capabilities, Crosswork Planning allows teams to:
-* <strong>Reduce Complexity:</strong> Visualize and manage multi-vendor, multi-layer network topologies with ease.
-* <strong>Optimize Resources:</strong> Identify bottlenecks and optimize traffic engineering paths before they impact the business.
-* <strong>Mitigate Risk:</strong> Perform "what-if" analysis to validate changes in a safe, simulated environment.</p>
+<p>By providing a unified view of the network and advanced modeling capabilities, Crosswork Planning allows teams to:</p>
+<ul>
+<li><strong>Reduce Complexity:</strong> Visualize and manage multi-vendor, multi-layer network topologies with ease.</li>
+<li><strong>Optimize Resources:</strong> Identify bottlenecks and optimize traffic engineering paths before they impact the business.</li>
+<li><strong>Mitigate Risk:</strong> Perform "what-if" analysis to validate changes in a safe, simulated environment.</li>
+</ul>
 <h2 id="the-accelerator-boosting-efficiency-with-cp-apis-and-python-sdk"><span class="num">4</span> The Accelerator: Boosting Efficiency with CP APIs and Python SDK</h2>
 <p>While the Crosswork Planning application provides the essential tools for human-led planning, the next step in the evolution is programmatic scale. By leveraging our native Python SDK, organizations can move beyond manual workflows into the realm of automated network planning.</p>
 <p>The Python SDK is a game-changer for customization; it allows engineers to build complex planning workflows using an intuitive, Pythonic syntax. This makes it easier than ever to integrate planning insights directly into CI/CD pipelines and operational systems. Beyond simple automation, these Python scripts serve as the <strong>essential tools</strong> for the next phase of our journey: the agentic future.</p>
@@ -369,12 +371,17 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
 <li><strong>CP MCP Server:</strong> Leveraging the <strong>CP SDK</strong>, this server acts as the dedicated interface for the CP Agent.</li>
 <li><strong>Crosswork Planning (CP) Server:</strong> The authoritative source of truth for network data, exposing the <code>opm-service</code> to interact with the powerful CP simulation engine.</li>
 </ul>
-<p><em>[Insert Architecture Diagram Here]</em></p>
+<div class="diagram">
+<img src="Resources/cp_agent_prototype_arch.jpg" alt="Crosswork Planning agent prototype architecture" style="max-width: 100%; height: auto;">
+<div class="diagram-caption">Crosswork Planning agent prototype architecture</div>
+</div>
 <h3>4.4 Deployment and Prototype in Action</h3>
-<p>Deploying your custom agent with Crosswork AI is a streamlined process:
-1.  <strong>Package:</strong> Containerize your agent logic and create a tar ball.
-2.  <strong>Register:</strong> First, register the external MCP server through the MCP GW of Crosswork AI; second, register the CP Agent through the Crosswork AI UI or <code>cwaictl</code> CLI tool.
-3.  <strong>Deploy:</strong> Use the Crosswork AI UI to spin up the agent instance.</p>
+<p>Deploying your custom agent with Crosswork AI is a streamlined process:</p>
+<ol>
+<li><strong>Package:</strong> Containerize your agent logic and create a tar ball.</li>
+<li><strong>Register:</strong> First, register the external MCP server through the MCP GW of Crosswork AI; second, register the CP Agent through the Crosswork AI UI or <code>cwaictl</code> CLI tool.</li>
+<li><strong>Deploy:</strong> Use the Crosswork AI UI to spin up the agent instance.</li>
+</ol>
 <p><strong>See the CP Agent in Action:</strong>
 To see this architecture in a real-world scenario, watch this demonstration of the prototype CP Agent: [Watch the CP Agent Prototype Demo - Link Here]</p>
 <h2 id="conclusion-the-future-is-autonomous"><span class="num">7</span> Conclusion: The Future is Autonomous</h2>
@@ -391,3 +398,4 @@ To see this architecture in a real-world scenario, watch this demonstration of t
 
 </body>
 </html>
+
