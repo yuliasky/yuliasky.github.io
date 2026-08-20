@@ -252,6 +252,30 @@ pre code { background: transparent; color: inherit; padding: 0; font-size: inher
   margin-top: 12px;
   font-style: italic;
 }
+.video-embed {
+  margin: 18px 0 26px;
+}
+.video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000000;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.video-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-caption {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 10px;
+  text-align: center;
+  font-style: italic;
+}
 .mermaid { background: white; }
 
 /* ===== Lists ===== */
@@ -319,13 +343,13 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
   body { background: white; font-size: 12px; }
   header { background: var(--cisco-midnight) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   header h1, header .subtitle, header .eyebrow, .meta-cell .value, .meta-cell .label, .wordmark-lockup .subbrand-name { color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .toc, .print-hint { display: none !important; }
+  .toc, .print-hint, .video-frame { display: none !important; }
   .card, .diagram, table { page-break-inside: avoid; box-shadow: none; }
 }
 </style>
 </head>
 <body>
-<header><div class="container"><div class="wordmark-lockup"><svg class="cisco-logotype" width="92" height="64" viewBox="0 0 111.5087 77.208" aria-label="Cisco" role="img" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#fff;}</style></defs><path class="cls-1" d="M85.2729,51.21a6.61078,6.61078,0,1,1-6.6114-6.4756A6.42437,6.42437,0,0,1,85.2729,51.21Zm-6.6114-3.2901A3.2916,3.2916,0,1,0,81.92721,51.21,3.233,3.233,0,0,0,78.6615,47.9199Z"/><path class="cls-1" d="M68.7299,48.541a5.5135,5.5135,0,0,0-2.6563-.6679,3.34039,3.34039,0,1,0,0,6.6767,5.57543,5.57543,0,0,0,2.6563-.6641v3.3584a10.08026,10.08026,0,0,1-2.877.4454,6.48027,6.48027,0,1,1,0-12.9551,9.64615,9.64615,0,0,1,2.877.4482Z"/><path class="cls-1" d="M55.2465,47.7998a10.82929,10.82929,0,0,0-2.4678-.3818c-1.2656,0-1.9531.4238-1.9531,1.0254,0,.7617.9277,1.0273,1.4473,1.1914l.8711.2773a3.76363,3.76363,0,0,1,2.9824,3.57909c0,3.14261-2.7637,4.19831-5.1797,4.19831a18.82838,18.82838,0,0,1-3.4072-.3418V54.4688a11.83173,11.83173,0,0,0,2.9814.4648c1.57031,0,2.293-.459,2.293-1.168,0-.6338-.625-1-1.4082-1.2461-.1914-.0634-.47849-.15331-.6739-.2177-1.7587-.5557-3.22459-1.5889-3.22459-3.6602,0-2.3398,1.752-3.9111,4.66209-3.9111a13.47819,13.47819,0,0,1,3.0772.3984Z"/><rect class="cls-1" x="40.1166" y="44.9561" width="3.1572" height="12.5107"/><path class="cls-1" d="M35.7768,48.541a5.4821,5.4821,0,0,0-2.6524-.6679,3.34049,3.34049,0,1,0,0,6.6767,5.53973,5.53973,0,0,0,2.6524-.6641v3.3584a10.01525,10.01525,0,0,1-2.8789.4454,6.48011,6.48011,0,1,1,0-12.9551,9.61669,9.61669,0,0,1,2.8789.4482Z"/><rect class="cls-1" x="88.6103" y="29.9492" width="3.1572" height="6.4121" rx="1.5786"/><rect class="cls-1" x="80.00171" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="71.39306" y="19.7412" width="3.1572" height="19.7412" rx="1.5786"/><rect class="cls-1" x="62.78442" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="54.17577" y="29.9492" width="3.1572" height="6.4121" rx="1.5786"/><rect class="cls-1" x="45.56713" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="36.95849" y="19.7412" width="3.1572" height="19.7412" rx="1.5786"/><rect class="cls-1" x="28.34984" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="19.7412" y="29.9492" width="3.1572" height="6.4121" rx="1.5786"/></svg></div><h1>From Static to Autonomous: The Evolution of Network Planning</h1><div class="meta-grid"><div class="meta-cell"><span class="label">Owner</span><span class="value">Julia Palomino</span></div><div class="meta-cell"><span class="label">Last Updated</span><span class="value">August 19, 2026</span></div></div></div></header>
+<header><div class="container"><div class="wordmark-lockup"><svg class="cisco-logotype" width="92" height="64" viewBox="0 0 111.5087 77.208" aria-label="Cisco" role="img" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#fff;}</style></defs><path class="cls-1" d="M85.2729,51.21a6.61078,6.61078,0,1,1-6.6114-6.4756A6.42437,6.42437,0,0,1,85.2729,51.21Zm-6.6114-3.2901A3.2916,3.2916,0,1,0,81.92721,51.21,3.233,3.233,0,0,0,78.6615,47.9199Z"/><path class="cls-1" d="M68.7299,48.541a5.5135,5.5135,0,0,0-2.6563-.6679,3.34039,3.34039,0,1,0,0,6.6767,5.57543,5.57543,0,0,0,2.6563-.6641v3.3584a10.08026,10.08026,0,0,1-2.877.4454,6.48027,6.48027,0,1,1,0-12.9551,9.64615,9.64615,0,0,1,2.877.4482Z"/><path class="cls-1" d="M55.2465,47.7998a10.82929,10.82929,0,0,0-2.4678-.3818c-1.2656,0-1.9531.4238-1.9531,1.0254,0,.7617.9277,1.0273,1.4473,1.1914l.8711.2773a3.76363,3.76363,0,0,1,2.9824,3.57909c0,3.14261-2.7637,4.19831-5.1797,4.19831a18.82838,18.82838,0,0,1-3.4072-.3418V54.4688a11.83173,11.83173,0,0,0,2.9814.4648c1.57031,0,2.293-.459,2.293-1.168,0-.6338-.625-1-1.4082-1.2461-.1914-.0634-.47849-.15331-.6739-.2177-1.7587-.5557-3.22459-1.5889-3.22459-3.6602,0-2.3398,1.752-3.9111,4.66209-3.9111a13.47819,13.47819,0,0,1,3.0772.3984Z"/><rect class="cls-1" x="40.1166" y="44.9561" width="3.1572" height="12.5107"/><path class="cls-1" d="M35.7768,48.541a5.4821,5.4821,0,0,0-2.6524-.6679,3.34049,3.34049,0,1,0,0,6.6767,5.53973,5.53973,0,0,0,2.6524-.6641v3.3584a10.01525,10.01525,0,0,1-2.8789.4454,6.48011,6.48011,0,1,1,0-12.9551,9.61669,9.61669,0,0,1,2.8789.4482Z"/><rect class="cls-1" x="88.6103" y="29.9492" width="3.1572" height="6.4121" rx="1.5786"/><rect class="cls-1" x="80.00171" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="71.39306" y="19.7412" width="3.1572" height="19.7412" rx="1.5786"/><rect class="cls-1" x="62.78442" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="54.17577" y="29.9492" width="3.1572" height="6.4121" rx="1.5786"/><rect class="cls-1" x="45.56713" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="36.95849" y="19.7412" width="3.1572" height="19.7412" rx="1.5786"/><rect class="cls-1" x="28.34984" y="25.6377" width="3.1572" height="10.7236" rx="1.5786"/><rect class="cls-1" x="19.7412" y="29.9492" width="3.1572" height="6.4121" rx="1.5786"/></svg></div><h1>From Static to Autonomous: The Evolution of Network Planning</h1><div class="meta-grid"><div class="meta-cell"><span class="label">Owner</span><span class="value">Julia Palomino</span></div><div class="meta-cell"><span class="label">Last Updated</span><span class="value">August 20, 2026</span></div></div></div></header>
 <div class="container">
 <div class="toc"><strong>Contents</strong><div class="toc-list"><a href="#the-limitations-of-traditional-planning">The Limitations of Traditional Planning</a><a href="#the-shift-toward-autonomy">The Shift Toward Autonomy</a><a href="#the-foundation-simplifying-planning-today-with-crosswork-planning">1. The Foundation: Simplifying Planning Today with Crosswork Planning</a><a href="#the-accelerator-boosting-efficiency-with-cp-apis-and-python-sdk">2. The Accelerator: Boosting Efficiency with CP APIs and Python SDK</a><a href="#the-future-the-agentic-shift-toward-autonomy">3. The Future: The Agentic Shift Toward Autonomy</a><a href="#technical-implementation-building-an-autonomous-planning-agent-prototype">Technical Implementation: Building an Autonomous Planning Agent Prototype</a><a href="#conclusion-a-practical-path-toward-autonomous-planning">Conclusion: A Practical Path Toward Autonomous Planning</a><a href="#references">References</a></div></div>
 <hr>
@@ -458,7 +482,13 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
 </a>
 <div class="diagram-caption">The CP Agent evaluates a proposed 1 Gbps demand, identifies insufficient capacity based on a projected maximum interface utilization of 112.36%, and invites the planner to continue the conversation with another simulation scenario. Select the image to open it at full resolution.</div>
 </div>
-<p><strong>See the CP Agent in Action:</strong> To see the complete prototype workflow&mdash;from registration and deployment to iterative simulation scenarios&mdash;watch the demonstration: [Watch the CP Agent Prototype Demo - Link Here]</p>
+<p><strong>See the CP Agent in Action:</strong> Watch the complete prototype workflow&mdash;from registration and deployment to iterative simulation scenarios&mdash;in the following demonstration.</p>
+<div class="video-embed">
+<div class="video-frame">
+<iframe src="https://www.youtube-nocookie.com/embed/QHDTWUFudx0" title="Network Planning AI Agent with Cisco Crosswork Planning and Crosswork AI prototype demonstration" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+<div class="video-caption">CP Agent prototype demonstration. If the embedded player is unavailable, <a href="https://youtu.be/QHDTWUFudx0" target="_blank" rel="noopener">watch the video on YouTube</a>.</div>
+</div>
 <h2 id="conclusion-a-practical-path-toward-autonomous-planning">Conclusion: A Practical Path Toward Autonomous Planning</h2>
 <p>Network planning does not become autonomous in a single step. It begins with a trustworthy network model and simulation environment, expands through APIs and a Python SDK that make analyses repeatable, and gains a new interaction and orchestration layer through AI agents. The three pillars described in this blog are therefore complementary: each one provides capabilities that the next depends on.</p>
 <p>The CP Agent prototype demonstrates the practical value of combining those layers. A planner can express a capacity question in natural language, allow the agent to select the appropriate tools through MCP, run the simulation in Crosswork Planning, and receive a quantitative result that supports a decision. The conversation can then continue with additional scenarios, making it possible to explore alternatives without rebuilding the workflow for every question.</p>
@@ -470,7 +500,7 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
 <li><strong>Cisco Crosswork AI Overview:</strong> <a href="https://www.cisco.com/c/en/us/products/collateral/networking/software/crosswork-network-automation/crosswork-ai-aag.html">Cisco Crosswork AI At a Glance</a></li>
 <li><strong>Model Context Protocol Tools:</strong> <a href="https://modelcontextprotocol.io/specification/2025-11-25/server/tools">MCP specification</a></li>
 <li><strong>CP MCP Server Prototype:</strong> <a href="https://github.com/yuliasky/wae-cp-api/tree/main/sample-mcp">GitHub repository</a></li>
-<li><strong>CP Agent Prototype:</strong> [GitHub Repository - Link Here]</li>
+<li><strong>CP Agent Prototype:</strong> <a href="https://github.com/yuliasky/cwai-adk/tree/main/cp-agent">GitHub repository</a></li>
 </ul>
 <hr>
 <div class="footer"><div class="footer-brand"><svg class="cisco-logotype" width="60" height="42" viewBox="0 0 111.5 77.2" aria-label="Cisco" role="img" xmlns="http://www.w3.org/2000/svg"><defs><style>.st0{fill:#07182d;}</style></defs><path class="st0" d="M85.3,51.2c0,3.7-2.8,6.7-6.5,6.7s-6.7-2.8-6.7-6.5c0-3.7,2.8-6.7,6.5-6.7,0,0,0,0,.1,0,3.5-.1,6.5,2.7,6.6,6.2,0,0,0,.2,0,.2ZM78.7,47.9c-1.8,0-3.3,1.4-3.3,3.3s1.4,3.3,3.3,3.3c1.8,0,3.3-1.4,3.3-3.3,0,0,0,0,0,0,0-1.8-1.4-3.3-3.2-3.3,0,0,0,0,0,0Z"/><path class="st0" d="M68.7,48.5c-.8-.4-1.7-.7-2.7-.7-1.8,0-3.4,1.4-3.5,3.2,0,1.8,1.4,3.4,3.2,3.5,0,0,.2,0,.2,0,.9,0,1.8-.2,2.7-.7v3.4c-.9.3-1.9.4-2.9.4-3.6.1-6.6-2.7-6.7-6.3-.1-3.6,2.7-6.6,6.3-6.7.1,0,.3,0,.4,0,1,0,1.9.2,2.9.4v3.4Z"/><path class="st0" d="M55.2,47.8c-.8-.2-1.6-.4-2.5-.4-1.3,0-2,.4-2,1s.9,1,1.4,1.2l.9.3c1.7.4,2.9,1.8,3,3.6,0,3.1-2.8,4.2-5.2,4.2-1.1,0-2.3-.1-3.4-.3v-2.9c1,.3,2,.4,3,.5,1.6,0,2.3-.5,2.3-1.2s-.6-1-1.4-1.2c-.2,0-.5-.2-.7-.2-1.8-.6-3.2-1.6-3.2-3.7s1.8-3.9,4.7-3.9c1,0,2.1.1,3.1.4v2.7Z"/><rect class="st0" x="40.1" y="45" width="3.2" height="12.5"/><path class="st0" d="M35.8,48.5c-.8-.4-1.7-.7-2.7-.7-1.8,0-3.4,1.4-3.5,3.2,0,1.8,1.4,3.4,3.2,3.5,0,0,.2,0,.2,0,.9,0,1.8-.2,2.7-.7v3.4c-.9.3-1.9.4-2.9.4-3.6.1-6.6-2.7-6.7-6.3-.1-3.6,2.7-6.6,6.3-6.7.1,0,.2,0,.4,0,1,0,1.9.2,2.9.4v3.4Z"/><rect class="st0" x="88.6" y="29.9" width="3.2" height="6.4" rx="1.6" ry="1.6"/><rect class="st0" x="80" y="25.6" width="3.2" height="10.7" rx="1.6" ry="1.6"/><rect class="st0" x="71.4" y="19.7" width="3.2" height="19.7" rx="1.6" ry="1.6"/><path class="st0" d="M64.4,25.6h0c.9,0,1.6.7,1.6,1.6v7.6c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-7.6c0-.9.7-1.6,1.6-1.6Z"/><path class="st0" d="M55.8,29.9h0c.9,0,1.6.7,1.6,1.6v3.3c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-3.3c0-.9.7-1.6,1.6-1.6Z"/><path class="st0" d="M47.1,25.6h0c.9,0,1.6.7,1.6,1.6v7.6c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-7.6c0-.9.7-1.6,1.6-1.6Z"/><path class="st0" d="M38.5,19.7h0c.9,0,1.6.7,1.6,1.6v16.6c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-16.6c0-.9.7-1.6,1.6-1.6Z"/><path class="st0" d="M29.9,25.6h0c.9,0,1.6.7,1.6,1.6v7.6c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-7.6c0-.9.7-1.6,1.6-1.6Z"/><path class="st0" d="M21.3,29.9h0c.9,0,1.6.7,1.6,1.6v3.3c0,.9-.7,1.6-1.6,1.6h0c-.9,0-1.6-.7-1.6-1.6v-3.3c0-.9.7-1.6,1.6-1.6Z"/></svg></div>©2026 Cisco and/or its affiliates. Cisco Confidential.<div class="print-hint">Print to PDF (<code>Cmd/Ctrl+P</code>) for a clean handout.</div></div>
