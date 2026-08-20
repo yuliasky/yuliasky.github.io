@@ -438,6 +438,16 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
 <li><strong>Register:</strong> First, register the external MCP server through the MCP GW of Crosswork AI; second, register the CP Agent through the Crosswork AI UI or <code>cwaictl</code> CLI tool.</li>
 <li><strong>Deploy:</strong> Use the Crosswork AI UI to spin up the agent instance.</li>
 </ol>
+<h4>Prototype Scenario: Can the Network Support a New Demand?</h4>
+<p>After selecting a plan file, the planner asks whether the network can support an additional 1 Gbps demand between two sites. The CP Agent interprets the request, invokes the appropriate planning tools through MCP, runs the simulation in Crosswork Planning, and evaluates the resulting interface utilization.</p>
+<p>In the recorded example, the simulation predicts a maximum interface utilization of <strong>112.36%</strong>. Because the projected load exceeds available capacity, the agent concludes that the shortest path cannot safely accommodate the new demand. This turns a natural-language request into an evidence-based planning decision&mdash;without requiring the planner to identify individual APIs, prepare scripts, or manually coordinate the simulation workflow.</p>
+<p>After presenting the result, the agent keeps the interaction open and invites the planner to describe the next simulation scenario. This conversational workflow allows planners to iteratively evaluate alternatives, refine assumptions, and investigate more advanced questions&mdash;such as identifying the interfaces most affected by a potential failure&mdash;without restarting the analysis or manually assembling a new workflow.</p>
+<div class="diagram">
+<a class="diagram-link" href="Resources/prototype_scenario.png" target="_blank" rel="noopener" aria-label="Open the CP Agent capacity assessment scenario at full resolution">
+<img src="Resources/prototype_scenario.png" alt="CP Agent evaluating a proposed 1 Gbps network demand and reporting a projected maximum interface utilization of 112.36 percent" style="max-width: 100%; height: auto;" loading="lazy">
+</a>
+<div class="diagram-caption">The CP Agent evaluates a proposed 1 Gbps demand, identifies insufficient capacity based on a projected maximum interface utilization of 112.36%, and invites the planner to continue the conversation with another simulation scenario. Select the image to open it at full resolution.</div>
+</div>
 <p><strong>See the CP Agent in Action:</strong>
 To see this architecture in a real-world scenario, watch this demonstration of the prototype CP Agent: [Watch the CP Agent Prototype Demo - Link Here]</p>
 <h2 id="conclusion-the-future-is-autonomous">Conclusion: The Future is Autonomous</h2>
