@@ -236,6 +236,16 @@ pre code { background: transparent; color: inherit; padding: 0; font-size: inher
   text-align: center;
   overflow-x: auto;
 }
+.diagram-link {
+  display: block;
+  border-bottom: none;
+  cursor: zoom-in;
+}
+.diagram-link:hover { border-bottom: none; }
+.diagram-link img {
+  display: block;
+  margin: 0 auto;
+}
 .diagram-caption {
   font-size: 12px;
   color: var(--muted);
@@ -323,7 +333,7 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
 <h2 id="the-limitations-of-traditional-planning">The Limitations of Traditional Planning</h2>
 <p>For years, network planning has relied on periodic analysis, manual data collection, and static modeling. While this served the needs of simpler architectures, it fails to keep pace with the demands of modern, high-capacity environments. The result is increased operational complexity, slower time-to-market, and missed opportunities for optimization.</p>
 <h2 id="the-shift-toward-autonomy">The Shift Toward Autonomy</h2>
-<p>Autonomous network planning represents a fundamental shift. By moving away from manual interventions and toward a framework powered by intelligent automation, organizations can transition from "planning for today" to "predicting for tomorrow." This journey is built on three distinct pillars.</p>
+<p>Autonomous network planning represents a fundamental shift: from manually invoking individual tools and workflows to expressing planning intent and allowing intelligent automation to coordinate the analysis. This enables organizations to move beyond planning only for current needs and begin anticipating future capacity, risk, and service requirements.</p>
 <h3 id="why-the-shift-matters-business-value-for-network-planning">Why the Shift Matters: Business Value for Network Planning</h3>
 <p>Network planning requires engineers to combine topology, traffic demand, capacity, failure scenarios, and business constraints across multiple tools and data sources. Even when APIs and automation are available, engineers must understand which application, script, or endpoint to use, how to construct each request, and how to combine the results into a defensible recommendation. This makes sophisticated planning workflows difficult to scale and often limits them to a small group of specialists.</p>
 <p>An agentic approach changes the interaction model from executing individual commands to expressing planning intent. Instead of manually coordinating every step, an engineer can describe the desired outcome in natural language—for example, asking whether the network can accommodate a new service, where capacity will be exhausted first, or how a particular failure could affect critical traffic. The agent can then identify the appropriate tools, validate the relevant network entities, execute the required analyses, and synthesize the results.</p>
@@ -335,6 +345,7 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
 <li><strong>Accelerated and Resilient Analysis:</strong> Agentic techniques allow independent analyses to run in parallel, reducing the time required to evaluate complex scenarios. Semantic resilience helps the agent interpret variations in terminology, recognize incomplete context, request clarification, and recover by selecting an alternative tool or analysis path when appropriate.</li>
 </ul>
 <p>Together, these capabilities shorten planning cycles, reduce dependence on specialized tool knowledge, and allow engineering teams to evaluate more alternatives before making a decision. The goal is not to remove the network planner from the process. It is to move the planner from manually operating and coordinating each tool to supervising an intelligent, traceable workflow. Network planners remain responsible for reviewing assumptions, assessing tradeoffs, and approving consequential actions, but they can spend less time constructing API calls and managing scripts—and more time applying engineering judgment to risk, strategy, and business outcomes.</p>
+<p>Realizing this value is a progressive journey rather than a single technological leap. The evolution toward autonomous network planning is built on three distinct pillars: a strong planning foundation, programmatic acceleration through APIs and SDKs, and an agentic future capable of reasoning across tools and workflows.</p>
 <h2 id="the-foundation-simplifying-planning-today-with-crosswork-planning"><span class="num">1</span> The Foundation: Simplifying Planning Today with Crosswork Planning</h2>
 <p>Before we can achieve full autonomy, we must master the fundamentals. <strong>Crosswork Planning (CP)</strong> serves as the cornerstone of this strategy. As a comprehensive automation application, it simplifies the complexities of network design, planning, and optimization right out of the box. </p>
 <p>By providing a unified view of the network and advanced modeling capabilities, Crosswork Planning allows teams to:</p>
@@ -361,10 +372,39 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
     }
 </code></pre>
 <h3>Local vs. MCP: Choosing Your Tooling Strategy</h3>
-<ul>
-<li><strong>Local Tools:</strong> These reside directly within the agent’s execution environment. Ideal for simple, dedicated agents where minimal latency is the priority.</li>
-<li><strong>MCP (Model Context Protocol):</strong> The industry standard for interoperability. By hosting tools on an MCP server, you decouple the tool logic from the agent, allowing the agent to <strong>discover and invoke tools dynamically</strong>.</li>
-</ul>
+<p>Agents can access planning capabilities through tools packaged locally in their execution environment or through tools exposed by an MCP server. MCP is most valuable when tools need to be reusable, isolated, standardized, or shared. Local tools are often the simpler choice for small, dedicated functions that do not require a separate service boundary.</p>
+<table>
+<thead>
+<tr>
+<th>Decision Factor</th>
+<th>Prefer MCP When</th>
+<th>Prefer Local Tools When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Reuse</strong></td>
+<td>The same capabilities should be available to multiple agents, teams, or environments.</td>
+<td>The function is dedicated to one agent or workflow and is unlikely to be reused.</td>
+</tr>
+<tr>
+<td><strong>Isolation and control</strong></td>
+<td>Credentials, dependencies, rate limits, or access policies benefit from being managed behind a separate service boundary.</td>
+<td>The logic is self-contained and can safely operate within the agent’s execution environment.</td>
+</tr>
+<tr>
+<td><strong>Integration approach</strong></td>
+<td>A consistent protocol is needed to expose an expanding or shareable tool ecosystem.</td>
+<td>Native tool calling already provides the required integration without introducing another service.</td>
+</tr>
+<tr>
+<td><strong>Function complexity</strong></td>
+<td>The tools represent substantial integrations or workflows that should evolve independently from the agent.</td>
+<td>The work consists of a simple one-off function or trivial calculation where MCP would add unnecessary operational overhead.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>MCP (Model Context Protocol)</strong> is particularly useful when interoperability and separation of concerns are important. By decoupling tool implementation from agent reasoning, MCP allows compatible agents to <strong>discover and invoke tools dynamically</strong> through a consistent interface, while keeping tool definitions and input schemas explicit.</p>
 <p><strong>Tool Definition Example (JSON Schema):</strong></p>
 <pre><code class="language-json">{
   &quot;name&quot;: &quot;get_link_utilization&quot;,
@@ -372,18 +412,24 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
   &quot;parameters&quot;: { &quot;link_id&quot;: &quot;string&quot; }
 }
 </code></pre>
+<p>For the prototype described below, MCP was selected because the CP planning tools represent reusable integration capabilities rather than simple one-off functions. Hosting them in the CP MCP Server separates the agent’s reasoning from the implementation of the planning tools, provides a boundary for managing access to CP, and allows the tools to evolve independently from the CP Agent. It also aligns with the Crosswork AI architecture, where the MCP Gateway provides the standardized connection between agents and external tool services. The following architecture shows how these components work together.</p>
 <h3>Architecture Overview: Integration with the Crosswork AI Framework</h3>
-<p>Crosswork AI is a production-ready, multi-agentic framework that provides built-in Cisco agents while enabling users to onboard custom agents via the <strong>Crosswork AI Agent SDK (ADK)</strong>. It is important to note that the following architecture represents <strong>prototype work</strong> and is not a productized CP agent. The integration relies on the following components:</p>
+<p>Crosswork AI is a production-ready, multi-agentic framework that brings together Cisco-built agents, the <strong>Crosswork AI Agent SDK (ADK)</strong>, and shared platform services for developing and operating agents. Beyond the built-in agents, the framework provides capabilities such as agent observability and tracing, agent evaluation, planning and orchestration services, governed model access, and standardized tool integration.</p>
+<p>Custom agents built and onboarded with the Crosswork AI ADK can leverage these shared components and services instead of implementing the entire operational foundation independently. This allows agent developers to focus on domain-specific reasoning and tools while benefiting from the broader capabilities of the framework.</p>
+<p>A detailed review of the complete Crosswork AI architecture is outside the scope of this blog. To keep the discussion focused on autonomous network planning, the architecture below highlights only the components that were most relevant to building the CP Agent prototype. It represents <strong>prototype work</strong> and is not a productized CP agent. The prototype relies on the following components:</p>
 <ul>
-<li><strong>CP Agent:</strong> A custom agent created using the <strong>Crosswork AI ADK</strong> and onboarded into the Crosswork AI framework to handle planning-specific reasoning.</li>
+<li><strong>AI Assistant UI:</strong> The natural language entry point where users submit planning requests and review the agent’s responses.</li>
 <li><strong>LLM Proxy:</strong> Centralizes LLM interactions for governance and model flexibility.</li>
 <li><strong>MCP GW (Gateway):</strong> Facilitates the connection between the agentic environment and external toolsets.</li>
 <li><strong>CP MCP Server:</strong> Leveraging the <strong>CP SDK</strong>, this server acts as the dedicated interface for the CP Agent.</li>
+<li><strong>CP Agent:</strong> A custom agent created using the <strong>Crosswork AI ADK</strong> and onboarded into the Crosswork AI framework to handle planning-specific reasoning.</li>
 <li><strong>Crosswork Planning (CP) Server:</strong> The authoritative source of truth for network data, exposing the <code>opm-service</code> to interact with the powerful CP simulation engine.</li>
 </ul>
 <div class="diagram">
-<img src="Resources/cp_agent_prototype_arch.jpg" alt="Crosswork Planning agent prototype architecture" style="max-width: 100%; height: auto;">
-<div class="diagram-caption">Crosswork Planning agent prototype architecture</div>
+<a class="diagram-link" href="Resources/cp_agent_prototype_arch.png" target="_blank" rel="noopener" aria-label="Open the CP Agent prototype architecture diagram at full resolution">
+<img src="Resources/cp_agent_prototype_arch.png" alt="Crosswork Planning agent prototype architecture with prototype components highlighted in cyan" style="max-width: 100%; height: auto;" loading="lazy">
+</a>
+<div class="diagram-caption">CP Agent prototype integration with Crosswork AI. Cyan blocks identify the components directly involved in the prototype; the remaining components provide broader platform context and are outside the scope of this blog. Select the diagram to open it at full resolution.</div>
 </div>
 <h3>Deployment and Prototype in Action</h3>
 <p>Deploying your custom agent with Crosswork AI is a streamlined process:</p>
