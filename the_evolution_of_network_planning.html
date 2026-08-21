@@ -389,7 +389,7 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
 <p>For reliable tool use, each function should return predictable, structured data such as JavaScript Object Notation (JSON) and clearly report the execution status, requested entity, measurements, units, and any errors.</p>
 <p><strong>Representative Tool Example:</strong></p>
 <pre><code class="language-python">def get_link_utilization(link_id: str):
-    # Logic using CP SDK to query the network model
+    # Logic using CP Python SDK to query the network model
     return {
         &quot;status&quot;: &quot;success&quot;,
         &quot;data&quot;: {&quot;link_id&quot;: link_id, &quot;utilization_pct&quot;: 75.5}
@@ -450,13 +450,13 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
 <p>For the prototype described below, MCP was selected because the CP planning tools represent reusable integration capabilities rather than simple one-off functions. Hosting them in the CP MCP Server separates the agent’s reasoning from the implementation of the planning tools, provides a boundary for managing access to CP, and allows the tools to evolve independently from the CP Agent. It also aligns with the Crosswork AI architecture, where the MCP Gateway provides the standardized connection between agents and external tool services. The following architecture shows how these components work together.</p>
 <h3>Architecture Overview: Integration with the Crosswork AI Framework</h3>
 <p>Crosswork AI is a production-ready, multi-agentic framework that brings together Cisco-built agents, the <strong>Crosswork AI Agent SDK (ADK)</strong>, and shared platform services for developing and operating agents. Beyond the built-in agents, the framework provides capabilities such as agent observability and tracing, agent evaluation, planning and orchestration services, governed model access, and standardized tool integration.</p>
-<p>An LLM connected directly to the CP MCP Server can demonstrate natural-language tool invocation, but that connection alone does not provide the complete operational foundation needed for governed agent deployment. Production environments also require capabilities such as identity and access control, governed model connectivity, agent routing and orchestration, observability and tracing, evaluation, context management, and lifecycle management. Crosswork AI provides these capabilities as shared platform services rather than requiring each custom agent to implement them independently.</p>
+<p>An LLM connected directly to the CP MCP Server can demonstrate natural-language tool invocation, but that connection alone does not provide the operational controls needed for governed agent deployment. Crosswork AI extends the tool-enabled prototype with the shared platform capabilities required to observe, evaluate, govern, orchestrate, and operate agents consistently.</p>
 <p>Custom agents built and onboarded with the Crosswork AI ADK can therefore focus on domain-specific reasoning and tools while leveraging consistent platform services for governance, operation, and lifecycle management.</p>
 <p>A detailed review of the complete Crosswork AI architecture is outside the scope of this blog. To keep the discussion focused on autonomous network planning, the architecture below highlights only the components that were most relevant to building the CP Agent prototype. It represents <strong>prototype work</strong> and is not a productized CP Agent. The prototype relies on the following components:</p>
 <ul>
 <li><strong>AI Assistant UI:</strong> The natural-language user interface (UI) where users submit planning requests and review the agent&rsquo;s responses.</li>
 <li><strong>LLM Proxy:</strong> Centralizes LLM interactions for governance and model flexibility.</li>
-<li><strong>MCP GW (Gateway):</strong> Facilitates the connection between the agentic environment and external toolsets.</li>
+<li><strong>MCP Gateway (GW):</strong> Facilitates the connection between the agentic environment and external toolsets.</li>
 <li><strong>CP MCP Server:</strong> Uses the <strong>CP Python SDK</strong> and acts as the dedicated interface between the CP Agent and the planning capabilities exposed as tools.</li>
 <li><strong>CP Agent:</strong> A custom agent created with the <strong>Crosswork AI ADK</strong> and onboarded into the Crosswork AI framework to handle planning-specific reasoning.</li>
 <li><strong>Crosswork Planning (CP) Server:</strong> Hosts the network models used for analysis and exposes the <code>opm-service</code> and <code>designapi</code> interfaces to the CP simulation engine.</li>
