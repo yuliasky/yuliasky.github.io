@@ -42,7 +42,16 @@ body {
 
 /* ===== Hero header ===== */
 header {
-  background: var(--cisco-midnight);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(13, 39, 77, 0.98) 0%,
+      rgba(13, 39, 77, 0.94) 38%,
+      rgba(13, 39, 77, 0.72) 60%,
+      rgba(13, 39, 77, 0.25) 100%
+    ),
+    url("Resources/blog_thumbnail_ai_network_planning_us_v3.png")
+      center right / cover no-repeat;
   color: #ffffff;
   padding: 0;
   margin-bottom: 48px;
@@ -79,7 +88,8 @@ header h1 {
   letter-spacing: -0.75px;
   color: #ffffff;
   line-height: 1.1;
-  max-width: 820px;
+  max-width: 650px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.35);
 }
 header .subtitle {
   font-size: 18px;
@@ -103,6 +113,7 @@ header .subtitle code {
   border: 1px solid rgba(255,255,255,0.18);
   border-radius: 2px;
   overflow: hidden;
+  max-width: 650px;
 }
 .meta-cell {
   background: var(--cisco-midnight);
@@ -307,6 +318,22 @@ ul li::marker, ol li::marker { color: var(--cisco-ink); }
   gap: 6px 24px;
 }
 @media (max-width: 700px) { .toc-list { grid-template-columns: 1fr; } }
+
+@media (max-width: 760px) {
+  header {
+    background:
+      linear-gradient(
+        rgba(13, 39, 77, 0.90),
+        rgba(13, 39, 77, 0.90)
+      ),
+      url("Resources/blog_thumbnail_ai_network_planning_us_v3.png")
+        center / cover no-repeat;
+  }
+  header h1,
+  header .meta-grid {
+    max-width: 100%;
+  }
+}
 .toc a {
   color: var(--cisco-sapphire);
   text-decoration: none;
